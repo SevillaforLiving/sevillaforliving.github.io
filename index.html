@@ -154,7 +154,7 @@ function buildGuidePages(){
       article.id='article-'+id+'-'+index;
       const body=index===0 && detail.querySelector('h4') ? detail.cloneNode(true) : null;
       let content='';
-      if(body){body.classList.add('open');body.style.display='block';content=body.innerHTML;}
+      if(body){body.removeAttribute('id');body.classList.add('open');body.style.display='block';content=body.innerHTML;}
       else content='<p>This article is being prepared. Check back soon for practical information and local advice.</p>';
       article.innerHTML='<section class="section"><div class="wrap"><div class="kicker">'+heading.textContent+'</div><h2>'+title+'</h2><button class="btn secondary" type="button" onclick="showView(\'category-'+id+'\')">Back to '+heading.textContent+' articles</button><div class="article-content">'+content+'</div></div></section>';
       document.body.insertBefore(article,document.querySelector('footer'));
