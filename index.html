@@ -609,10 +609,10 @@ function unlockAgenda(){document.getElementById('lockPanel').style.display='none
 try{if(localStorage.getItem('sfl-agenda-preview')==='yes')unlockAgenda()}catch(e){}
 
 const guideDrawings={
-'Housing':'<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M12 43L60 8l48 35M22 37v43h76V37M49 80V53h22v27"/><path class="accent" d="M35 48h12v12H35zM76 48h12v12H76z"/><path class="fill" d="M54 22h12v12H54z"/></svg>',
-'Transport':'<svg viewBox="0 0 120 90" aria-hidden="true"><rect class="line" x="20" y="10" width="80" height="64" rx="10"/><path class="accent" d="M25 43h70M32 19h22v17H32zM66 19h22v17H66z"/><circle class="fill" cx="38" cy="76" r="7"/><circle class="fill" cx="82" cy="76" r="7"/><path class="line" d="M31 55h8M81 55h8"/></svg>',
-'Documents':'<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M28 8h48l18 18v56H28zM76 8v19h18"/><path class="accent" d="M42 43h38M42 55h38M42 67h25"/><circle class="fill" cx="54" cy="28" r="9"/></svg>',
-'University':'<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M12 34L60 10l48 24M20 39h80M25 39v37M45 39v37M75 39v37M95 39v37M16 79h88"/><path class="fill" d="M60 5L8 31h104z"/><path class="accent" d="M53 20l7 4 7-4"/></svg>'
+'Housing':'<svg viewBox="0 0 160 110" aria-hidden="true"><path class="line" d="M18 51L80 8l62 43M30 45v55h100V45"/><path class="fill" d="M65 100V62h30v38z"/><path class="accent" d="M42 57h18v18H42zM100 57h18v18h-18z"/><circle class="soft" cx="88" cy="81" r="2"/></svg>',
+'Transport':'<svg viewBox="0 0 160 110" aria-hidden="true"><rect class="fill" x="22" y="12" width="116" height="78" rx="13"/><path class="line" d="M29 53h102M38 23h34v25H38zM88 23h34v25H88zM36 66h12M112 66h12"/><path class="accent" d="M29 53h102"/><circle class="line" cx="48" cy="91" r="10"/><circle class="line" cx="112" cy="91" r="10"/></svg>',
+'Documents':'<svg viewBox="0 0 160 110" aria-hidden="true"><path class="fill" d="M43 8h57l22 22v72H43z"/><path class="line" d="M100 8v24h22M58 51h48M58 65h48M58 79h34"/><circle class="accent" cx="70" cy="31" r="10"/><path class="line" d="M57 44q13-16 26 0"/></svg>',
+'University':'<svg viewBox="0 0 160 110" aria-hidden="true"><path class="fill" d="M13 37L80 7l67 30z"/><path class="line" d="M20 42h120M25 44v52M52 44v52M80 44v52M108 44v52M135 44v52M16 99h128"/><path class="accent" d="M67 17h26M80 7v-5"/></svg>'
 };
 function buildGuidePages(){
   const guide=document.getElementById('guide');
@@ -669,14 +669,13 @@ function buildLocalPages(){
   article.innerHTML='<section class="section"><div class="wrap"><div class="kicker">Local context</div><h2>'+title+'</h2><button class="btn secondary" type="button" onclick="showView(\'local\')">Back to local context</button><div class="article-content">'+body.innerHTML+'</div></div></section>';
   document.body.insertBefore(article,document.querySelector('footer'));
   const drawings=[
-   '<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M60 8c-13 0-22 10-22 23 0 17 13 38 22 51 9-13 22-34 22-51C82 18 73 8 60 8z"/><path class="fill" d="M60 17c-8 0-13 6-13 14 0 11 8 24 13 32 5-8 13-21 13-32 0-8-5-14-13-14z"/><path class="accent" d="M60 25v29M52 39h16"/></svg>',
-   '<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M15 78h90M25 78V39h70v39M18 39l42-28 42 28"/><path class="accent" d="M33 39v39M47 39v39M73 39v39M87 39v39"/><path class="fill" d="M51 78V52h18v26z"/><path class="line" d="M60 11v-7"/></svg>',
-   '<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M20 67c10-8 22-8 32 0s22 8 32 0 18-8 26-3M20 67l-5 10M52 67l-3 10M84 67l-3 10"/><path class="accent" d="M29 25l16 13M45 18l11 17M91 25L75 38M75 18L64 35"/><path class="fill" d="M24 20q-8-7-13 2 7 10 16 5M96 20q8-7 13 2-7 10-16 5"/></svg>',
+   '<svg viewBox="0 0 160 110" aria-hidden="true"><path class="line" d="M26 89h108M37 84V43h86v41"/><path class="fill" d="M42 45c0-12 8-22 18-22s18 10 18 22z"/><path class="accent" d="M48 45q12-14 24 0M83 45q12-14 24 0"/><path class="line" d="M49 54v26M61 54v26M99 54v26M111 54v26"/><path class="fill" d="M18 83h124v9H18z"/><path class="accent" d="M25 20q10-8 20 0M115 20q10-8 20 0"/></svg>',
+   '<svg viewBox="0 0 160 110" aria-hidden="true"><path class="line" d="M18 94h124M30 90V44h100v46M20 44l60-34 60 34"/><path class="accent" d="M44 46v44M64 46v44M96 46v44M116 46v44"/><path class="fill" d="M70 90V59h20v31z"/><path class="line" d="M80 10V3M72 3h16"/></svg>',
+   '<svg viewBox="0 0 160 110" aria-hidden="true"><path class="fill" d="M35 24q-8-13 4-18 13 9 7 21zM125 24q8-13-4-18-13 9-7 21z"/><path class="line" d="M42 23l29 35M118 23L89 58M71 58q9-8 18 0l-4 32H75z"/><path class="accent" d="M44 28l22 26M116 28L94 54M72 65h16M75 77h10"/><circle class="soft" cx="80" cy="49" r="5"/></svg>',
    '<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M15 40h90v39H15z"/><path class="fill" d="M12 40l10-22h76l10 22z"/><path class="soft" d="M12 40h24v12H12zM36 40h24v12H36zM60 40h24v12H60zM84 40h24v12H84z"/><path class="line" d="M28 52v27M92 52v27M15 79h90"/></svg>',
    '<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M48 36h24v42H48zM43 78h34"/><path class="fill" d="M60 7c-12 13-10 22 0 28 10-6 12-15 0-28z"/><path class="accent" d="M60 18c-4 7-3 11 0 14 4-4 4-8 0-14z"/><path class="line" d="M43 36h34M54 47v18M66 47v18"/></svg>',
-   '<svg viewBox="0 0 120 90" aria-hidden="true"><path class="line" d="M20 72l9-31 25-13 25 7 14 20-5 17H20zM29 41l-9-9M54 28l10-12 14 3 9 16M30 72v8M83 72v8"/><path class="fill" d="M20 72h77l-4 9H20z"/><path class="accent" d="M51 30l-5-12 10-9 13 4 5 12M64 16l8-9 10 5 1 10"/></svg>'
-  ];
-  const link=document.createElement('button');link.type='button';link.className='local-story-card';link.innerHTML='<div class="story-illustration">'+drawings[index%drawings.length]+'</div><strong>'+title+'</strong><span>Read the story ↗</span>';link.addEventListener('click',()=>showView(article.id));localView.querySelector('#local-story-grid').appendChild(link);
+   '<svg viewBox="0 0 160 110" aria-hidden="true"><path class="line" d="M20 87h120M38 79l8-35 28-15 29 7 18 23-6 20H38zM46 44l-12-13M74 29l9-14 18 3 12 18M48 79v10M113 79v10"/><path class="fill" d="M38 78h83l-5 12H38z"/><path class="accent" d="M81 29l-6-14 12-10 15 4 7 13M97 14l10-9 13 6 1 14"/><path class="line" d="M46 45q15-7 29-1"/></svg>'
+  ];  const link=document.createElement('button');link.type='button';link.className='local-story-card';link.innerHTML='<div class="story-illustration">'+drawings[index%drawings.length]+'</div><strong>'+title+'</strong><span>Read the story ↗</span>';link.addEventListener('click',()=>showView(article.id));localView.querySelector('#local-story-grid').appendChild(link);
  });
 }
 buildLocalPages();
