@@ -482,7 +482,7 @@ header{position:sticky;top:0;z-index:10;background:var(--cream);border-bottom:1p
 <details class="agenda-event"><summary><time>Various times</time><strong>Live flamenco at Seville's tablaos</strong></summary><div class="agenda-info"><p>For an evening of live flamenco, check the daily programmes at El Arenal, Museo del Baile Flamenco, La Cantaora and Las Setas. Show times and prices vary by venue and date.</p><a href="https://www.tablaoelarenal.com/" target="_blank" rel="noopener">El Arenal ↗</a> · <a href="https://museodelbaileflamenco.com/" target="_blank" rel="noopener">Museo del Baile Flamenco ↗</a> · <a href="https://flamencolacantaora.com/en/" target="_blank" rel="noopener">La Cantaora ↗</a> · <a href="https://tablaoflamencolassetas.com/" target="_blank" rel="noopener">Las Setas ↗</a></div></details>
 </div>
 </div>
-<div class="lock-panel" id="lockPanel"><div class="lock-card"><div class="kicker">Early access</div><h3>Unlock the Weekly Agenda</h3><p>Register your interest for free to access the full weekly selection of events and student activities.</p><a class="btn" href="https://tally.so/r/e5rKrJ">Register your email</a><p class="fine">No emails will be sent to you. No spam, newsletters or follow up messages. Your email is only used to register your interest.</p><button class="fine" style="border:0;background:none;text-decoration:underline;cursor:pointer" onclick="unlockAgenda()">I've already registered</button></div></div>
+<div class="lock-panel" id="lockPanel"><div class="lock-card"><div class="kicker">Early access</div><h3>Unlock the Weekly Agenda</h3><p>Register your email to access the full weekly selection of events and student activities.</p><a class="btn" href="https://tally.so/r/e5rKrJ">Register your email</a><p class="fine">No emails will be sent to you. No spam, newsletters or follow up messages. Your email is only used to register your interest.</p><p class="fine" id="agendaAccessStatus" aria-live="polite">After registering, you will be redirected here automatically.</p></div></div>
 </div><p class="fine" id="agendaNote">The weekly selection is updated every week. Event times and availability may change, so check the organiser's page before you go.</p>
 </div></section></div>
 <div class="view" id="local"><section class="section"><div class="wrap"><div class="kicker">Beyond the postcard</div><h2>Local context</h2><p class="lead">Discover Seville beyond its famous landmarks. From flamenco and traditional food to local celebrations, curious traditions and everyday customs, explore the stories and flavours that make this city unique.</p><div class="local-story-grid" id="local-story-grid"></div>
@@ -670,8 +670,33 @@ function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();showView(el.dataset.view)}));
 function toggleArticles(id){document.getElementById(id).classList.toggle('open')}
 function toggleDetail(id){document.getElementById(id).classList.toggle('open')}
-function unlockAgenda(){document.getElementById('lockPanel').style.display='none';document.getElementById('agendaNote').textContent='Agenda preview unlocked on this device. Registration is recorded separately through Tally.';try{localStorage.setItem('sfl-agenda-preview','yes')}catch(e){}}
-try{if(localStorage.getItem('sfl-agenda-preview')==='yes')unlockAgenda()}catch(e){}
+const AGENDA_ACCESS_ENDPOINT='https://script.google.com/macros/s/AKfycbyUWKPQoJYnMRi_Sx21A7kcB2VwlVxJE5mWbJpva-Zbw9QWeSkaMNSzobkUw4A5alks/exec';
+let agendaAccessAttempts=0;
+function checkAgendaAccess(){
+ const submission=new URLSearchParams(location.search).get('submission');
+ const status=document.getElementById('agendaAccessStatus');
+ if(!submission){if(status)status.textContent='Register your email to receive access to the agenda.';return;}
+ if(status)status.textContent='Checking your registration…';
+ const callbackName='sflAgendaAccessResult';
+ window[callbackName]=function(result){
+  if(result&&result.valid){
+   document.getElementById('lockPanel').style.display='none';
+   document.getElementById('agendaNote').textContent='Your registration has been confirmed. Enjoy the weekly agenda!';
+   showView('agenda');
+  }else if(agendaAccessAttempts<5){
+   agendaAccessAttempts++;
+   if(status)status.textContent='Your registration is being processed. Checking again…';
+   setTimeout(checkAgendaAccess,1500);
+  }else{
+   if(status)status.textContent='We could not confirm your registration yet. Please wait a moment and refresh this page.';
+  }
+ };
+ const script=document.createElement('script');
+ script.src=AGENDA_ACCESS_ENDPOINT+'?submission='+encodeURIComponent(submission)+'&callback='+callbackName+'&_='+Date.now();
+ script.onerror=function(){if(status)status.textContent='We could not verify access right now. Please refresh and try again.';};
+ document.body.appendChild(script);
+ setTimeout(()=>script.remove(),10000);
+}
 
 const guideDrawings={
 'Housing':'<svg viewBox="0 0 160 110" aria-hidden="true"><path class="line" d="M18 51L80 8l62 43M30 45v55h100V45"/><path class="fill" d="M65 100V62h30v38z"/><path class="accent" d="M42 57h18v18H42zM100 57h18v18h-18z"/><circle class="soft" cx="88" cy="81" r="2"/></svg>',
@@ -745,5 +770,5 @@ function buildLocalPages(){
 }
 buildLocalPages();
 
-const params=new URLSearchParams(location.search);if(params.get('agenda')==='unlocked'){unlockAgenda();showView('agenda')}else{const initial=location.hash.replace('#','');if(['home','guide','agenda','local','team','contact'].includes(initial))showView(initial)}
+const initial=location.hash.replace('#','');if(['home','guide','agenda','local','team','contact'].includes(initial))showView(initial);checkAgendaAccess();
 </script></body></html>
